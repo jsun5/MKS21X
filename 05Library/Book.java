@@ -5,7 +5,7 @@ public class Book{
 
     public Book() {};
     
-    public Book(a,t,I){
+    public Book(String a, String t, int I){
 	author = a;
 	title = t;
 	ISBN = I;
