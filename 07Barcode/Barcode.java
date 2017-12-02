@@ -1,4 +1,4 @@
-public class Barcode {
+public class Barcode implements Comparable<Barcode> {
     private String zip;
     private String[] key = { "||:::",
 			     ":::||",
@@ -33,6 +33,16 @@ public class Barcode {
 	return "|" + getCode() + "| (" + getZip() + ")";
     }
 
+    public int compareTo (Barcode other){
+	return getZip().compareTo(other.getZip());
+    }
+
+    public boolean equals (Barcode other){
+	return getZip() == other.getZip();
+    }
+
+
+    ////////////// TESTING /////////////////
     public static void main(String[] args) {
 	System.out.println( (int) '9' - '0');
 	Barcode test = new Barcode ("00000");
