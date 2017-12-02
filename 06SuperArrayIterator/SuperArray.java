@@ -1,9 +1,35 @@
 // Jerry Sun Pd 9
+import java.util.*;
 
 public class SuperArray{
     private String[] data;
     private int size;
 
+    private class SuperArrayIterator implements Iterator<String> {
+	private SuperArray data;
+	private int index;
+
+	public SuperArrayIterator (SuperArray caller, int position){
+	    data = caller;
+	    index = position;
+	}
+
+	public String next() {
+	    if (hasNext()){
+		index ++;
+	    }
+	    else {
+		System.exit(0);
+	    }
+	    return data.get(index);
+	}
+
+	public boolean hasNext(){
+	    return index < data.size();
+	}
+    }
+
+	
     public SuperArray() {
         data = new String[10];
         //size = 0;     NOT NEEDED (IMPLIED)
