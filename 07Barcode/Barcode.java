@@ -23,10 +23,22 @@ public class Barcode {
 	String code = "";
 	int check = 0;
 	for (int i = 0; i < zip.length(); i ++) {
-	    code += key[(int)zip.charAt(i)];
-	    check += (int)zip.charAt(i);
+	    code += key[(int)zip.charAt(i) - '0'];
+	    check += (int)zip.charAt(i) - '0';
 	}
-	return code + key[check];
+	return code + key[check % 10];
+    }
+
+    public String toString(){
+	return "|" + getCode() + "| (" + getZip() + ")";
+    }
+
+    public static void main(String[] args) {
+	System.out.println( (int) '9' - '0');
+	Barcode test = new Barcode ("00000");
+	System.out.println (test); // "|||:::||:::||:::||:::||:::||:::| (00000)"
+	Barcode test2 = new Barcode ("08451");
+	System.out.println (test2); // "|||:::|::|::|::|:|:|::::|||::|:| (08451)"
     }
 }
 	
