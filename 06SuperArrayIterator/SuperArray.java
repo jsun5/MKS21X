@@ -1,7 +1,7 @@
 // Jerry Sun Pd 9
 import java.util.*;
 
-public class SuperArray{
+public class SuperArray implements Iterable<String>{
     private String[] data;
     private int size;
 
@@ -29,6 +29,9 @@ public class SuperArray{
 	}
     }
 
+    public Iterator<String> iterator(){
+	return new SuperArrayIterator(this, 0);
+    }
 	
     public SuperArray() {
         data = new String[10];
