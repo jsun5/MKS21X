@@ -1,15 +1,5 @@
 public class Barcode implements Comparable<Barcode> {
     private String zip;
-    private String[] key = { "||:::",
-			     ":::||",
-			     "::|:|",
-			     "::||:",
-			     ":|::|",
-			     ":|:|:",
-			     ":||::",
-			     "|:::|",
-			     "|::|:",
-			     "|:|::"  };
     
     public Barcode(String zip) {
 	if (zip.length() != 5) {
@@ -23,22 +13,36 @@ public class Barcode implements Comparable<Barcode> {
 	this.zip = zip;
     }
 
+    public static String toCode (String zip) {
+	    String[] key = { "||:::",
+			     ":::||",
+			     "::|:|",
+			     "::||:",
+			     ":|::|",
+			     ":|:|:",
+			     ":||::",
+			     "|:::|",
+			     "|::|:",
+			     "|:|::"  };
+	String code = "";
+	int check = 0;
+	for (int i = 0; i < 5; i ++) {
+	    code += key[(int)zip.charAt(i) - '0'];
+	    check += (int)zip.charAt(i) - '0';
+	}
+	return "|" + code + key[check % 10] + "|";
+    }
+    
     public String getZip(){
 	return zip;
     }
 
     public String getCode(){
-	String code = "";
-	int check = 0;
-	for (int i = 0; i < zip.length(); i ++) {
-	    code += key[(int)zip.charAt(i) - '0'];
-	    check += (int)zip.charAt(i) - '0';
-	}
-	return code + key[check % 10];
+	return toCode(zip);
     }
 
     public String toString(){
-	return "|" + getCode() + "| (" + getZip() + ")";
+	return getCode() + " (" + getZip() + ")";
     }
 
     public int compareTo (Barcode other){
