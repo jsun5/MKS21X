@@ -12,6 +12,14 @@ public class Barcode implements Comparable<Barcode> {
 			     "|:|::"  };
     
     public Barcode(String zip) {
+	if (zip.length() != 5) {
+	      	throw new IllegalArgumentException("Please enter zip 5 digits in length");
+	}
+	for (int i = 0; i < zip.length(); i++) {
+	    if ( (int)zip.charAt(i) - '0' < 0 || (int)zip.charAt(i) - '0' > 9) {
+		throw new IllegalArgumentException("Please enter zip with only numberical values");
+	    }
+	}	
 	this.zip = zip;
     }
 
@@ -44,11 +52,16 @@ public class Barcode implements Comparable<Barcode> {
 
     ////////////// TESTING /////////////////
     public static void main(String[] args) {
-	System.out.println( (int) '9' - '0');
+	System.out.println( (int) '9' - '0');// 9
 	Barcode test = new Barcode ("00000");
 	System.out.println (test); // "|||:::||:::||:::||:::||:::||:::| (00000)"
 	Barcode test2 = new Barcode ("08451");
 	System.out.println (test2); // "|||:::|::|::|::|:|:|::::|||::|:| (08451)"
+	//Barcode error = new Barcode ("1234567"); 
+	//System.out.println (error); // need 5 digits
+	//Barcode error2 = new Barcode ("1a^?>");
+	//System.out.println (error2); //need numbers
+	
     }
 }
 	
