@@ -1,5 +1,6 @@
 public class Barcode implements Comparable<Barcode> {
     private String zip;
+    private String code;
     
     public Barcode(String zip) {
 	if (zip.length() != 5) {
@@ -11,6 +12,7 @@ public class Barcode implements Comparable<Barcode> {
 	    }
 	}	
 	this.zip = zip;
+	code = toCode(zip);
     }
 
     public static String toCode (String zip) {
@@ -59,15 +61,28 @@ public class Barcode implements Comparable<Barcode> {
 		    }
 	code = code.substring(1,32);
 	String zip = "";
-	for (int i = 0; i < 25; i += 5) {
+	int check = 0;
+	int checkSum = 0;
+	for (int i = 0; i < 30; i += 5) {
 	    for (int keyI = 0; keyI < 10; keyI ++) {
-		if (keyI == 10) {
-		    throw new IllegalArgumentException("Digit sequence or character at line " + i + " to " + (i + 5 + " is invalid"));
-		}
 	        if (code.substring(i, i + 5).equals( key[keyI])) {
-		    zip += keyI;
+		    if (i < 25) {
+			zip += keyI;
+			check += keyI;
+		    }
+		    else {
+			checkSum = keyI;
+			System.out.println ("check = " + check);
+			System.out.println ("checkSum = " + checkSum);
+		    }
 	        }
 	    }
+	}
+	if (zip.length() < 5) {
+	    throw new IllegalArgumentException("digit sequence incorrect or non-barcode characters used");
+	}
+      	if (checkSum != check % 10) {
+	    throw new IllegalArgumentException("checkSum is invalid");
 	}
 	return zip;
     }
@@ -79,7 +94,7 @@ public class Barcode implements Comparable<Barcode> {
     }
 
     public String getCode(){
-	return toCode(zip);
+	return code;
     }
 
     public String toString(){
@@ -96,8 +111,8 @@ public class Barcode implements Comparable<Barcode> {
 
 
     ////////////// TESTING /////////////////
-    public static void main(String[] args) {
-	System.out.println( (int) '9' - '0');// 9
+      public static void main(String[] args) {
+	  /*	System.out.println( (int) '9' - '0');// 9
 	Barcode test = new Barcode ("00000");
 	System.out.println (test); // "|||:::||:::||:::||:::||:::||:::| (00000)"
 	System.out.println (toCode("00000"));
@@ -108,11 +123,24 @@ public class Barcode implements Comparable<Barcode> {
 	//Barcode error2 = new Barcode ("1a^?>");
 	//System.out.println (error2); //need numbers
 	System.out.println (toZip("|||:::||:::||:::||:::||:::||:::|"));
-	System.out.println (toZip("|||:::|::|::|::|:|:|::::|||::|:|"));	
+        System.out.println (toZip("|||:::|::|::|::|:|:|::::|||::|:|")); */
 
+	  //	Barcode e = new Barcode("asdfd"); //Contains non-barcode characters, should throw IllegalArgumentException
+	  //	Barcode f = new Barcode("1234"); //Invalid length, should throw IllegalArgumentException
+
+	    System.out.println(Barcode.toCode("00294")); // |||:::||:::::|:||:|:::|::|:|:|:|
+	    //	System.out.println(Barcode.toCode("asdfd")); //Contains non-barcode characters, should throw IllegalArgumentException
+	    //	System.out.println(Barcode.toCode("1234")); //Invalid length, should throw IllegalArgumentException
+
+		System.out.println(Barcode.toZip("|||:::||:::::|:||:|:::|::|:|:|:|")); //Should return 00294
+		//	System.out.println(Barcode.toZip("|:::||:::||::|:|:|::|:|:|:::||:")); //Invalid length, should throw IllegalArgumentException
+		//System.out.println(Barcode.toZip("|:::||:::||::|:|:|::|:|:|:::||||")); //Incorrect checksum, should throw IllegalArgumentException
+		//	System.out.println(Barcode.toZip("|a::||:::||::|:|:|::|:|:|:::||:|")); //Contains non-barcode characters, should throw IllegalArgumentException
+		//	System.out.println(Barcode.toZip("::::||:::||::|:|:|::|:|:|:::||:|")); //First character is not '|', should throw IllegalArgumentException
+		//	System.out.println(Barcode.toZip("|:::||:::||::|:|:|::|:|:|:::||::")); //Last character is not '|', should throw IllegalArgumentException
+		//		System.out.println(Barcode.toZip("|::::::::||::|:|:|::|:|:|:::||:|")); //Invalid character sequence, should throw IllegalArgumentException
     }
 }
-	
 	
 	    
 	
