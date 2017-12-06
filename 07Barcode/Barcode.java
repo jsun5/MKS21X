@@ -1,6 +1,16 @@
 public class Barcode implements Comparable<Barcode> {
     private String zip;
     private String code;
+    private static String[] key = { "||:::",
+				    ":::||",
+				    "::|:|",
+				    "::||:",
+				    ":|::|",
+				    ":|:|:",
+				    ":||::",
+				    "|:::|",
+				    "|::|:",
+				    "|:|::"  };
     
     public Barcode(String zip) {
 	if (zip.length() != 5) {
@@ -16,16 +26,6 @@ public class Barcode implements Comparable<Barcode> {
     }
 
     public static String toCode (String zip) {
-	    String[] key = { "||:::",
-			     ":::||",
-			     "::|:|",
-			     "::||:",
-			     ":|::|",
-			     ":|:|:",
-			     ":||::",
-			     "|:::|",
-			     "|::|:",
-			     "|:|::"  };
 	    
       	if (zip.length() != 5) { //same throws as constructor
 	      	throw new IllegalArgumentException("Please enter zip 5 digits in length");
@@ -46,19 +46,9 @@ public class Barcode implements Comparable<Barcode> {
     }
 
     public static String toZip (String code) {
-		    String[] key = { "||:::",
-			     ":::||",
-			     "::|:|",
-			     "::||:",
-			     ":|::|",
-			     ":|:|:",
-			     ":||::",
-			     "|:::|",
-			     "|::|:",
-			     "|:|::"  };
-		    if (code.length() != 32 || code.charAt(0) != '|' || code.charAt(31) != '|'){
-			throw new IllegalArgumentException("code formatting error");
-		    }
+        if (code.length() != 32 || code.charAt(0) != '|' || code.charAt(31) != '|'){
+	    throw new IllegalArgumentException("code formatting error");
+        }
 	code = code.substring(1,32);
 	String zip = "";
 	int check = 0;
@@ -72,8 +62,6 @@ public class Barcode implements Comparable<Barcode> {
 		    }
 		    else {
 			checkSum = keyI;
-			System.out.println ("check = " + check);
-			System.out.println ("checkSum = " + checkSum);
 		    }
 	        }
 	    }
@@ -86,9 +74,7 @@ public class Barcode implements Comparable<Barcode> {
 	}
 	return zip;
     }
-		
-
-	
+	       	
     public String getZip(){
 	return zip;
     }
@@ -107,38 +93,6 @@ public class Barcode implements Comparable<Barcode> {
 
     public boolean equals (Barcode other){
 	return getZip() == other.getZip();
-    }
-
-
-    ////////////// TESTING /////////////////
-      public static void main(String[] args) {
-	  /*	System.out.println( (int) '9' - '0');// 9
-	Barcode test = new Barcode ("00000");
-	System.out.println (test); // "|||:::||:::||:::||:::||:::||:::| (00000)"
-	System.out.println (toCode("00000"));
-	Barcode test2 = new Barcode ("08451");
-	System.out.println (test2); // "|||:::|::|::|::|:|:|::::|||::|:| (08451)"
-	//Barcode error = new Barcode ("1234567"); 
-	//System.out.println (error); // need 5 digits
-	//Barcode error2 = new Barcode ("1a^?>");
-	//System.out.println (error2); //need numbers
-	System.out.println (toZip("|||:::||:::||:::||:::||:::||:::|"));
-        System.out.println (toZip("|||:::|::|::|::|:|:|::::|||::|:|")); */
-
-	  //	Barcode e = new Barcode("asdfd"); //Contains non-barcode characters, should throw IllegalArgumentException
-	  //	Barcode f = new Barcode("1234"); //Invalid length, should throw IllegalArgumentException
-
-	    System.out.println(Barcode.toCode("00294")); // |||:::||:::::|:||:|:::|::|:|:|:|
-	    //	System.out.println(Barcode.toCode("asdfd")); //Contains non-barcode characters, should throw IllegalArgumentException
-	    //	System.out.println(Barcode.toCode("1234")); //Invalid length, should throw IllegalArgumentException
-
-		System.out.println(Barcode.toZip("|||:::||:::::|:||:|:::|::|:|:|:|")); //Should return 00294
-		//	System.out.println(Barcode.toZip("|:::||:::||::|:|:|::|:|:|:::||:")); //Invalid length, should throw IllegalArgumentException
-		//System.out.println(Barcode.toZip("|:::||:::||::|:|:|::|:|:|:::||||")); //Incorrect checksum, should throw IllegalArgumentException
-		//	System.out.println(Barcode.toZip("|a::||:::||::|:|:|::|:|:|:::||:|")); //Contains non-barcode characters, should throw IllegalArgumentException
-		//	System.out.println(Barcode.toZip("::::||:::||::|:|:|::|:|:|:::||:|")); //First character is not '|', should throw IllegalArgumentException
-		//	System.out.println(Barcode.toZip("|:::||:::||::|:|:|::|:|:|:::||::")); //Last character is not '|', should throw IllegalArgumentException
-		//		System.out.println(Barcode.toZip("|::::::::||::|:|:|::|:|:|:::||:|")); //Invalid character sequence, should throw IllegalArgumentException
     }
 }
 	
