@@ -35,9 +35,9 @@ public class Sorts{
     
     public static void insertionSort(int[] data){
         for (int i = 0; i < data.length - 1; i ++) {
-            for (int ind = i; ind > -1; ind --) {
-                if (data[ind + 1] < data[ind]) {
-                    swap(data, ind + 1, ind);
+            for (int ind = i + 1; ind > 0; ind --) {
+                if (data[ind ] < data[ind - 1]) {
+                    swap(data, ind, ind- 1);
                 }
             }
         }
@@ -47,8 +47,8 @@ public class Sorts{
         
         
 
-    public static void main(String[]args){                                         
-        int[] randish = new int[100];                                                
+/*    public static void main(String[]args){                                         
+        int[] randish = new int[20];                                                
         for(int i = 0 ; i < randish.length; i++){                                   
             randish[i] =(int)(Math.random()*100);                                   
         }                                         
@@ -57,4 +57,4 @@ public class Sorts{
         insertionSort(randish);                                                  
         System.out.println(Arrays.toString(randish));                                                                                                                 
     }                                                                               
-}                       
+}                     */  
