@@ -13,8 +13,8 @@ public class Sorts{
             }                                                                       
         }                                                                           
         return true;                                                                
-    }                                                                               
-                                                                                                                                        
+    }
+
     private static void swap(int[]ary,int a, int b){                                
         int c = ary[a];                                                              
         ary[a] = ary[b];                                                            
@@ -42,19 +42,38 @@ public class Sorts{
             }
         }
     }
-                    
+
+    public static void bubbleSort(int[] data){
+	int limit = data.length - 1;
+	while (limit > 1){
+	    int swaps = 0;
+	    for (int i = 0; i < limit; i ++){
+		if (data[i] > data[i + 1]){
+		    swap (data, i, i + 1);
+		    swaps ++;
+		}
+	    }
+	    if (swaps == 0){
+		return;
+	    }
+	    limit --;
+	}
+    }
         
         
         
 
-/*    public static void main(String[]args){                                         
-        int[] randish = new int[20];                                                
+    public static void main(String[]args){                                         
+        int[] randish = new int[25];                                                
         for(int i = 0 ; i < randish.length; i++){                                   
             randish[i] =(int)(Math.random()*100);                                   
-        }                                         
+        }
+	int[] copy = randish;
         System.out.println(name());
-        System.out.println(Arrays.toString(randish));                               
-        insertionSort(randish);                                                  
-        System.out.println(Arrays.toString(randish));                                                                                                                 
-    }                                                                               
-}                     */  
+	        System.out.println(Arrays.toString(randish));                               
+        bubbleSort(randish);                                                  
+	    System.out.println(Arrays.toString(randish));
+		Arrays.sort(copy);
+	System.out.println(copy.equals(randish));
+    }                                     
+}
