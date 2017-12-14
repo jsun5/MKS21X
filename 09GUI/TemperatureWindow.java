@@ -32,14 +32,23 @@ public class TemperatureWindow extends JFrame implements ActionListener{
     public void actionPerformed(ActionEvent e){
 	String s = e.getActionCommand();
 	System.out.println(s);
-	if(s.equals("Convert Celsius to Fahrenheit")){
+	
+	try{
 	    double temp = Double.parseDouble(t.getText());
-	    t.setText(Double.toString(TempConversion.CtoF(temp)));
+
+	    if(s.equals("Convert Celsius to Fahrenheit")){
+		t.setText("" + TempConversion.CtoF(temp));
+	    }
+	    
+	    if(s.equals("Convert Fahrenheit to Celsius")){
+		t.setText("" + TempConversion.FtoC(temp));
+	    }
 	}
-	if(s.equals("Convert Fahrenheit to Celsius")){
-	    double temp = Double.parseDouble(t.getText());
-	    t.setText(Double.toString(TempConversion.FtoC(temp)));
+
+	catch (NumberFormatException exc) {
+	    t.setText("Please input a number here!!!");
 	}
+
     }
 
 
