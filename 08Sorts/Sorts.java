@@ -45,7 +45,7 @@ public class Sorts{
 
     public static void bubbleSort(int[] data){
 	int limit = data.length - 1;
-	while (!isSorted(data)){
+	while (limit > 1 && !isSorted(data)){
 	    int swaps = 0;
 	    for (int i = 0; i < limit; i ++){
 		if (data[i] > data[i + 1]){
@@ -56,7 +56,7 @@ public class Sorts{
 	    if (swaps == 0){
 		return;
 	    }
-	    //limit --;
+	    limit --;
 	}
     }
         
