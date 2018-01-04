@@ -44,36 +44,94 @@ public class Sorts{
     }
 
     public static void bubbleSort(int[] data){
-	int limit = data.length - 1;
-	while (limit > 1 && !isSorted(data)){
-	    int swaps = 0;
-	    for (int i = 0; i < limit; i ++){
-		if (data[i] > data[i + 1]){
-		    swap (data, i, i + 1);
-		    swaps ++;
-		}
-	    }
-	    if (swaps == 0){
-		return;
-	    }
-	    limit --;
-	}
+        int limit = data.length - 1;
+        boolean swaps = true;
+        while (swaps){
+            swaps = false;
+            for (int i = 0; i < limit; i ++){
+                if (data[i] > data[i + 1]){
+                    swap (data, i, i + 1);
+                    swaps = true;
+                }
+            }
+        }
+        limit --;
     }
+
+    
+        /////////////////////////////////////////////
         
-        
+/*public static void runTest08(int SORT, int SIZE, int MODE){
+  //This is super ugly, I repurposed old code
+  //Sorry!
+  int[]inc = new int[SIZE];
+  int[]dec = new int[SIZE];
+  int[]rnd = new int[SIZE];
+  int[][] arrays = new int [6][];
+  
+  for(int i = 0; i < inc.length; i ++){
+    inc[i] = -10000 + 10 * i + (int)(Math.random()*5);
+    dec[SIZE-i-1] = inc[i];
+    rnd[i] = (int)(Math.random() * 20000000)-10000000;
+  }
+  arrays[3]= inc;
+  arrays[4]= dec;
+  arrays[5]= rnd;
+  arrays[0]=Arrays.copyOf(inc,SIZE);
+  arrays[1]=Arrays.copyOf(dec,SIZE);
+  arrays[2]=Arrays.copyOf(rnd,SIZE);
+  Arrays.sort(inc);
+  Arrays.sort(dec);
+  Arrays.sort(rnd);
+  
+  sort(arrays[MODE],SORT);
+  
+  if( ! Arrays.equals(arrays[MODE+3],arrays[MODE]) ) {
+    System.out.println("FAIL! "+methodName(SORT)+" Mode:"+MODE+" Size:"+SIZE);
+  }else{
+    System.out.println("PASS! "+methodName(SORT)+" Mode:"+MODE+" Size:"+SIZE);
+  }
+}
+
+public static void sort(int[]ary,int method){
+  try{
+    if(method == 0){
+      Sorts.bubbleSort(ary);
+    }
+    if(method == 1){
+      Sorts.selectionSort(ary);
+    }
+    if(method == 2){
+      Sorts.insertionSort(ary);
+    }
+  }catch ( Exception e){
+    e.printStackTrace();
+  }
+}
+public static String methodName(int i){
+  String[]names = {"Bubble","Selection","Insertion","Built In"};
+  return names[i];
+}
         
 
     public static void main(String[]args){                                         
-        int[] randish = new int[25];                                                
-        for(int i = 0 ; i < randish.length; i++){                                   
-            randish[i] =(int)(Math.random()*100);                                   
-        }
-	int[] copy = randish;
-        System.out.println(name());
-	        System.out.println(Arrays.toString(randish));                               
-        bubbleSort(randish);                                                  
-	    System.out.println(Arrays.toString(randish));
-		Arrays.sort(copy);
-	System.out.println(copy.equals(randish));
+        runTest08(0, 0, 0);
+        runTest08(1, 0, 0);
+        runTest08(2, 0, 0);
+        runTest08(0, 1, 0);
+        runTest08(1, 1, 0);
+        runTest08(2, 1, 0);
+        runTest08(0, 1000, 0);
+        runTest08(1, 1000, 0);
+        runTest08(2, 1000, 0);
+        runTest08(0, 1000, 1);
+        runTest08(1, 1000, 1);
+        runTest08(2, 1000, 1);
+        runTest08(0, 1000, 2);
+        runTest08(1, 1000, 2);
+        runTest08(2, 1000, 2);
+        
+    }*/
+        
+
     }                                     
-}
