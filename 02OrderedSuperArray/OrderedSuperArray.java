@@ -1,3 +1,5 @@
+import java.util.*; //for testing w ArrayList
+
 public class OrderedSuperArray extends SuperArray{
 
     //private String[] data;
@@ -113,85 +115,127 @@ public class OrderedSuperArray extends SuperArray{
         }
         return -1;
     }
-
-/* TESTING IGNORE THIS
-
-    public static void main(String[] args) {
-	OrderedSuperArray a = new OrderedSuperArray();
-    for (int count = 0; count < 10; count ++) {
-        a.add(count, "" + count );
-    }
-     
-        System.out.println(a);
-    	System.out.println("index of 1: " + a.findIndex("1"));
-        System.out.println("index of 8: " + a.findIndex("8"));
-        System.out.println("index of 6: " + a.findIndex("6"));
-    	System.out.println("index of 1: " + a.findIndexBinary("1"));
-        System.out.println("index of 8: " + a.findIndexBinary("8"));
-        System.out.println("index of 6: " + a.findIndexBinary("6"));
-        
-    OrderedSuperArray b = new OrderedSuperArray(20);
-    b.add("b");
-    b.add("a");
-    b.add("a");
-//    b.add("hello");
-//    b.add("9.5");
-//    b.add("Hello");
-//    b.add("oof");
-//    b.add("boooooi");
-    b.add("a");
-    b.add("b");
     
-    System.out.println(b);
-    System.out.println(b.indexOfBinary("a"));
-    System.out.println(b.indexOfBinary("b"));
-    System.out.println(b.lastIndexOfBinary("a"));
-    System.out.println(b.lastIndexOfBinary("b"));
+    ////////////////////////////////////////////////////////////////
+
+/*public static void runTest02(int testID){
+  
+  if(testID<0){
+    System.out.println("Error in driver usage!");
+    System.exit(0);
+  }
+  
+  OrderedSuperArray s1 = new OrderedSuperArray();
+  ArrayList<String> s2 = new ArrayList<>();
+  
+  try{
+    if(testID == 0 ){
+    }
+    
+    if(testID == 1 ){
+      s1.add("4");
+      s2.add("4");
+      s1.add("1");
+      s2.add("1");
+      s1.add("0");
+      s2.add("0");
+    }
+    
+    if(testID == 2 ){
+      s1.add("3");
+      s2.add("3");
+      s1.add("1");
+      s2.add("1");
+      s1.add("5");
+      s2.add("5");
+      s1.add("0");
+      s2.add("0");
+    }
+    
+    if(testID == 3 ){
+      s1.add("1");
+      s2.add("1");
+      for(int i = 0; i < 10; i ++){
+        String v = ""+(int)(Math.random()*1000);
+        int in = (int)(Math.random()*s2.size());
+        s1.add(in,v);
+        s2.add(in,v);
+      }
+    }
+    
+    if(testID == 4 ){
+      s1.add("1");
+      s2.add("1");
+      try{
+        s1.set(0,"");
+      } catch(UnsupportedOperationException e){
         
-        OrderedSuperArray ordered = new OrderedSuperArray();
-      System.out.println(ordered.add("Happy"));
-      System.out.println(ordered.add("Apple"));
-      System.out.println(ordered.add("Bable"));
-      System.out.println("happy".compareTo("Happy"));
-      System.out.println(ordered);
-      System.out.println(ordered.add("bable"));
+      }
+    }
+    
+    if(testID == 5 ){
+      try{
+        s1.set(0,"");
+      } catch(UnsupportedOperationException e){
+        
+      }
+    }
+    
+    if(testID == 6 ){
+      String[] x= {"adsf","b","X","C","fish","cat","Abby","break","romp"};
+      s1 = new OrderedSuperArray(x);
+      s2.addAll(Arrays.asList(x));
+    }
+    if(testID == 7 ){
+      s1.add("1");
+      s2.add("1");
+      
+      for(int i = 0; i < 1000;   i ++){
+        String v = ""+(int)(Math.random()*1000);
+        s1.add(v);
+        s2.add(v);
+      }
+    }
+    
+    
+  }catch(Exception f){
+    s2.add("0");
+    //f.printStackTrace();
+  }
+  
+  Collections.sort(s2);
+  if(equals(s1,s2)){
+    System.out.println("Test "+testID+",PASS");
+  }else{
+    System.out.println("Test "+testID+",FAIL!");// "+s1+"!="+s2);
+  }
+}
 
-      System.out.println(ordered.add("happy"));
-      System.out.println(ordered.add("zappy"));
-      System.out.println(ordered.add("Zappy"));
 
-      System.out.println(ordered);
-
-      String[] nextStrings = new String[26];
-      int count = 0;
-      for (int i = 0; i < 26; i ++){
-        if (i % 2 == 0){
-          nextStrings[i] = "" + (char)(i + 65);
-          nextStrings[i] = nextStrings[i].toLowerCase();
-        }
-        else{
-          nextStrings[i] = "" + (char)(i + 65);
+//oops!
+public static boolean equals(OrderedSuperArray s, ArrayList<String> a){
+    if(s.size() == a.size()){
+      for(int i = 0; i < s.size(); i++){
+        if(!s.get(i).equals( a.get(i))){
+          return false;
         }
       }
-
-      OrderedSuperArray next = new OrderedSuperArray(nextStrings);
-      next.add("B");
-      next.add("B");
-      next.add("B");
-
-      next.add("H");
-      System.out.println(next);
-      System.out.println(next.indexOfBinary("B"));//should be 0
-      System.out.println(next.indexOfBinary("H"));//should be 4
-      System.out.println(next.indexOfBinary("Z"));//should be 12
-      System.out.println(next.indexOfBinary("X"));//should be 11
-      System.out.println(next.lastIndexOf("H")); // 7
-      System.out.println(next.lastIndexOf("B")); // 3
-      for (int i = 0; i < next.size(); i ++){
-        System.out.println(next.get(i) + "||" + next.findIndex(next.get(i)) + "||" + next.findIndexBinary(next.get(i)) );
-      }
-
-      System.out.println(next.findIndexBinary("1")); // should return size(); */
+      return true;
+    }
+    return false;
+  }
+  
+  public static void main(String[]Args){
+    runTest02(0);
+    runTest02(1);
+    runTest02(2);
+    runTest02(3);
+    runTest02(4);
+    runTest02(5);
+    runTest02(6);
+    runTest02(7);
+} 
+*/
 
 }
 
