@@ -1,6 +1,6 @@
 // Jerry Sun Pd 9
 
-//import java.util.*; //for testing w ArrayList
+import java.util.*; //for testing w ArrayList
 
 public class SuperArray{
     private String[] data;
@@ -63,7 +63,7 @@ public class SuperArray{
 
     public String set(int index, String str) { 
         if (index < 0 || index > size() || str.equals("")) {
-            throw new UnsupportedOperationException("No element at index " + index);
+            throw new IndexOutOfBoundsException ("No element at index " + index);
         }
         String elem = data[index];
         data[index] = str;
@@ -176,7 +176,7 @@ public class SuperArray{
     
     /////////////////////////////////////////////////////////////////////////////////////////
     
-/*    public static void runTest01(int testID){
+    public static void runTest01(int testID){
   if(testID<0){
     System.out.println("Error in driver usage!");
     System.exit(0);
@@ -314,5 +314,5 @@ public static void main(String[]Args){
     runTest01(7);
     runTest01(8);
     runTest01(9);
-} */
+} 
 }
